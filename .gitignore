@@ -1,0 +1,47 @@
+# Secrets and local configuration
+.env
+*.pem
+*.key
+kaggle.json
+
+# Local runtimes and generated data
+.runtime/
+.venv/
+node_modules/
+apps/web/node_modules/
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/postgres/
+models/
+workspace/*
+!workspace/.gitkeep
+artifacts/
+reports/
+.guide_media/
+*.log
+*.pid
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+coverage.xml
+.coverage
+htmlcov/
+
+# Frontend
+apps/web/dist/
+*.tsbuildinfo
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

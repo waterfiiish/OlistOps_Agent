@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OlistOps Hybrid RAG 实测</title>
+<style>
+:root {
+  font-family: "Times New Roman", SimSun, serif;
+  color: #10233e;
+  background: #f4f0e8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    linear-gradient(rgba(21,57,95,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21,57,95,.05) 1px, transparent 1px),
+    #f4f0e8;
+  background-size: 28px 28px;
+}
+main { width: min(1320px, calc(100% - 56px)); margin: 0 auto; padding: 36px 0 72px; }
+header { display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:3px solid #173b64; padding:22px 0; margin-bottom:28px; }
+.eyebrow { color:#e85b3c; font-weight:700; letter-spacing:.12em; }
+h1 { margin:6px 0 0; font-size:38px; font-weight:500; }
+h2 { margin:28px 0 12px; font-size:23px; }
+.stamp { color:#65758a; font-size:13px; text-align:right; }
+.grid { display:grid; grid-template-columns:repeat(4,1fr); border:2px solid #173b64; }
+.card { padding:18px; min-height:104px; border-right:1px solid #173b64; background:rgba(255,255,255,.6); }
+.card:last-child { border-right:0; }
+.card small { display:block; color:#6a7888; text-transform:uppercase; letter-spacing:.08em; }
+.card strong { display:block; margin-top:9px; font-size:23px; color:#173b64; }
+table { width:100%; border-collapse:collapse; background:rgba(255,255,255,.66); }
+th,td { border:1px solid #aeb9c5; padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:#173b64; color:white; }
+pre { white-space:pre-wrap; word-break:break-word; background:#10233e; color:#eef5ff;
+  padding:18px; border-left:7px solid #e85b3c; line-height:1.55; }
+.report { background:rgba(255,255,255,.78); border:2px solid #173b64; padding:28px 34px; }
+.report h1 { font-size:30px; }
+.report h2 { border-bottom:1px solid #9facba; padding-bottom:6px; }
+.trace { display:flex; flex-wrap:wrap; gap:7px; }
+.trace span { background:#173b64; color:#fff; padding:7px 10px; font-size:13px; }
+.notice { margin:18px 0; padding:14px 16px; border:1px solid #e85b3c; background:#fff6ed; }
+</style>
+</head>
+<body><main>
+<header><div><div class="eyebrow">LIVE HYBRID RAG EVIDENCE</div>
+<h1>Hybrid RAG 检索实测</h1></div>
+<div class="stamp">查询<br>配送延期和包装检查应该如何处理，并且报告需要怎样引用证据？</div></header>
+<div class="grid">
+  <div class="card"><small>模式</small><strong>hybrid</strong></div>
+  <div class="card"><small>文档</small><strong>16</strong></div>
+  <div class="card"><small>向量覆盖</small><strong>60/60</strong></div>
+  <div class="card"><small>Embedding</small><strong>local_hash / 384d</strong></div>
+</div>
+<div class="notice">Weighted RRF：FTS 0.75，
+Vector 0.25，k=60。
+以下结果来自当前运行中的真实 API。</div>
+<table><thead><tr><th>引用</th><th>文档</th><th>FTS Rank</th>
+<th>Vector Rank</th><th>RRF Score</th><th>证据摘录</th></tr></thead>
+<tbody><tr><td>K-001</td><td>包装与发货检查清单</td><td>1</td><td>14</td><td>0.01567346</td><td>如果某商品类别的延期率和低分率同时上升，应分别检查备货、包装耗时、交接截止时间和承运过程。包装建议属于流程证据，不能被写成某次延期的已证明原因。</td></tr><tr><td>K-002</td><td>包装与发货检查清单</td><td>2</td><td>25</td><td>0.01503795</td><td>&gt; 项目模拟文档。建议在实际业务中结合商品与承运规则复核。</td></tr><tr><td>K-003</td><td>经营报告指标口径说明</td><td>7</td><td>9</td><td>0.01481722</td><td>&gt; 项目模拟文档。指标与 OlistOps 项目代码保持一致。</td></tr><tr><td>K-004</td><td>包装与发货检查清单</td><td>3</td><td>28</td><td>0.01474567</td><td>核对商品数量、尺寸、重量和易碎属性；确认运输标签清晰且不覆盖封口；记录交给承运商的时间。包装材料应能限制商品在箱内移动，液体、易碎品和尖锐物品需要额外隔离。</td></tr><tr><td>K-005</td><td>证据校验与报告规范</td><td>6</td><td>17</td><td>0.01461039</td><td>数据结论必须有结构化指标工具结果，流程建议必须有知识片段或明确标注为一般性建议。引用的片段应真正包含支撑内容。结构化数据与知识文档冲突时，报告应同时声明冲突，不得静默选择一方。</td></tr></tbody></table>
+</main></body></html>

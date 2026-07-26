@@ -1,0 +1,25 @@
+dataset:
+  title: Brazilian E-Commerce Public Dataset by Olist
+  url: https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
+  provider: Olist
+  accessed: 2026-07-24
+  license: CC BY-NC-SA 4.0
+  usage: Non-commercial portfolio and learning project
+
+public_metadata:
+  - title: Olist Central de Ajuda
+    url: https://ajuda.olist.com/
+    accessed: 2026-07-24
+    usage: Source metadata only; site body is not committed
+  - title: Sobre Envios da Olist
+    url: https://ajuda.olist.com/sobre-o-servico/sobre-envios-da-olist
+    accessed: 2026-07-24
+    usage: Source metadata only; site body is not committed
+  - title: Guia de Embalagem para Envios Olist
+    url: https://ajuda.olist.com/pt_BR/cotacoes-e-regras-de-transporte/guia-de-embalagem-para-envios-olist
+    accessed: 2026-07-24
+    usage: Source metadata only; site body is not committed
+
+project_policies:
+  count: 16
+  notice: All Markdown policies in this directory are simulated project documents.

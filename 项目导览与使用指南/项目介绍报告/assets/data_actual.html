@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OlistOps 真实数据库快照</title>
+<style>
+:root {
+  font-family: "Times New Roman", SimSun, serif;
+  color: #10233e;
+  background: #f4f0e8;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background:
+    linear-gradient(rgba(21,57,95,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21,57,95,.05) 1px, transparent 1px),
+    #f4f0e8;
+  background-size: 28px 28px;
+}
+main { width: min(1320px, calc(100% - 56px)); margin: 0 auto; padding: 36px 0 72px; }
+header { display:flex; justify-content:space-between; align-items:flex-end;
+  border-bottom:3px solid #173b64; padding:22px 0; margin-bottom:28px; }
+.eyebrow { color:#e85b3c; font-weight:700; letter-spacing:.12em; }
+h1 { margin:6px 0 0; font-size:38px; font-weight:500; }
+h2 { margin:28px 0 12px; font-size:23px; }
+.stamp { color:#65758a; font-size:13px; text-align:right; }
+.grid { display:grid; grid-template-columns:repeat(4,1fr); border:2px solid #173b64; }
+.card { padding:18px; min-height:104px; border-right:1px solid #173b64; background:rgba(255,255,255,.6); }
+.card:last-child { border-right:0; }
+.card small { display:block; color:#6a7888; text-transform:uppercase; letter-spacing:.08em; }
+.card strong { display:block; margin-top:9px; font-size:23px; color:#173b64; }
+table { width:100%; border-collapse:collapse; background:rgba(255,255,255,.66); }
+th,td { border:1px solid #aeb9c5; padding:9px 12px; text-align:left; vertical-align:top; }
+th { background:#173b64; color:white; }
+pre { white-space:pre-wrap; word-break:break-word; background:#10233e; color:#eef5ff;
+  padding:18px; border-left:7px solid #e85b3c; line-height:1.55; }
+.report { background:rgba(255,255,255,.78); border:2px solid #173b64; padding:28px 34px; }
+.report h1 { font-size:30px; }
+.report h2 { border-bottom:1px solid #9facba; padding-bottom:6px; }
+.trace { display:flex; flex-wrap:wrap; gap:7px; }
+.trace span { background:#173b64; color:#fff; padding:7px 10px; font-size:13px; }
+.notice { margin:18px 0; padding:14px 16px; border:1px solid #e85b3c; background:#fff6ed; }
+</style>
+</head>
+<body><main>
+<header><div><div class="eyebrow">LIVE DATABASE EVIDENCE</div>
+<h1>OlistOps 真实数据库快照</h1></div>
+<div class="stamp">采集时间<br>2026-07-25T09:43:44+08:00</div></header>
+<div class="grid">
+  <div class="card"><small>PostgreSQL</small><strong>16.14</strong></div>
+  <div class="card"><small>订单</small><strong>99,441</strong></div>
+  <div class="card"><small>订单明细</small><strong>112,650</strong></div>
+  <div class="card"><small>数据期间</small><strong>2016-09-04—2018-10-17</strong></div>
+</div>
+<h2>RAW 原始层</h2><table><thead><tr><th>表</th><th>当前行数</th></tr></thead>
+<tbody><tr><td>raw.customers</td><td>99,441</td></tr><tr><td>raw.geolocation</td><td>1,000,163</td></tr><tr><td>raw.orders</td><td>99,441</td></tr><tr><td>raw.order_items</td><td>112,650</td></tr><tr><td>raw.order_payments</td><td>103,886</td></tr><tr><td>raw.order_reviews</td><td>99,224</td></tr><tr><td>raw.products</td><td>32,951</td></tr><tr><td>raw.sellers</td><td>3,095</td></tr><tr><td>raw.category_translation</td><td>71</td></tr></tbody></table>
+<h2>MART 分析层</h2><table><thead><tr><th>表/物化视图</th><th>当前行数</th></tr></thead>
+<tbody><tr><td>mart.mart_order_fulfillment</td><td>99,441</td></tr><tr><td>mart.mart_seller_order_fulfillment</td><td>100,010</td></tr><tr><td>mart.mart_category_order_fulfillment</td><td>99,470</td></tr><tr><td>mart.mart_review_analysis_base</td><td>99,224</td></tr><tr><td>mart.mart_payment_analysis_base</td><td>101,686</td></tr><tr><td>mart.mart_seller_performance_monthly</td><td>16,441</td></tr><tr><td>mart.mart_category_performance_monthly</td><td>1,283</td></tr></tbody></table>
+</main></body></html>

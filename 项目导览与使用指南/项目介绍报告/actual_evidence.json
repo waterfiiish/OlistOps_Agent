@@ -1,0 +1,296 @@
+{
+  "captured_at": "2026-07-25T09:43:44+08:00",
+  "base_url": "http://127.0.0.1:8000",
+  "health": {
+    "status": "ok",
+    "database": {
+      "database": "olistops",
+      "version": "16.14",
+      "vector_enabled": "true"
+    },
+    "model": {
+      "status": "ok",
+      "configured_model": "qwen2.5:3b",
+      "available_models": [
+        "qwen2.5:3b",
+        "qwen3:4b"
+      ]
+    },
+    "rag": {
+      "retrieval_mode": "hybrid",
+      "embedding_provider": "local_hash",
+      "embedding_dimensions": 384,
+      "document_count": 16,
+      "chunk_count": 60,
+      "embedded_chunk_count": 60,
+      "embedding_coverage": 1.0,
+      "document_statuses": {
+        "ready": 16
+      },
+      "rrf": {
+        "k": 60,
+        "fts_weight": 0.75,
+        "vector_weight": 0.25
+      },
+      "reranker_enabled": false
+    },
+    "error": null
+  },
+  "knowledge": {
+    "retrieval_mode": "hybrid",
+    "embedding_provider": "local_hash",
+    "embedding_dimensions": 384,
+    "document_count": 16,
+    "chunk_count": 60,
+    "embedded_chunk_count": 60,
+    "embedding_coverage": 1.0,
+    "document_statuses": {
+      "ready": 16
+    },
+    "rrf": {
+      "k": 60,
+      "fts_weight": 0.75,
+      "vector_weight": 0.25
+    },
+    "reranker_enabled": false
+  },
+  "search": {
+    "query": "配送延期和包装检查应该如何处理，并且报告需要怎样引用证据？",
+    "mode": "hybrid",
+    "count": 5,
+    "results": [
+      {
+        "chunk_id": "74f27aaf-9af2-46bf-8474-1ca0ac69fd51",
+        "document_id": "a905dd0f-10e1-41ef-a522-ed91090e233f",
+        "title": "包装与发货检查清单",
+        "source_url": null,
+        "ordinal": 2,
+        "heading_path": [
+          "包装与发货检查清单",
+          "异常复盘"
+        ],
+        "fts_score": 0.0,
+        "lexical_hits": 5,
+        "title_hits": 3,
+        "fts_rank": 1,
+        "vector_score": 0.0677796,
+        "vector_rank": 14,
+        "rrf_score": 0.01567346,
+        "rerank_score": 0.01567346,
+        "retrieval_mode": "hybrid",
+        "embedding_provider": "local_hash",
+        "potential_injection": false,
+        "excerpt": "如果某商品类别的延期率和低分率同时上升，应分别检查备货、包装耗时、交接截止时间和承运过程。包装建议属于流程证据，不能被写成某次延期的已证明原因。"
+      },
+      {
+        "chunk_id": "f094d12a-201d-4aa1-808b-3c6e4bc0fb16",
+        "document_id": "a905dd0f-10e1-41ef-a522-ed91090e233f",
+        "title": "包装与发货检查清单",
+        "source_url": null,
+        "ordinal": 0,
+        "heading_path": [
+          "包装与发货检查清单"
+        ],
+        "fts_score": 0.0,
+        "lexical_hits": 3,
+        "title_hits": 3,
+        "fts_rank": 2,
+        "vector_score": 0.04226213,
+        "vector_rank": 25,
+        "rrf_score": 0.01503795,
+        "rerank_score": 0.01503795,
+        "retrieval_mode": "hybrid",
+        "embedding_provider": "local_hash",
+        "potential_injection": false,
+        "excerpt": "> 项目模拟文档。建议在实际业务中结合商品与承运规则复核。"
+      },
+      {
+        "chunk_id": "7184f429-0662-4c6c-a13d-e3eb398e68a9",
+        "document_id": "f821d314-b699-406c-b9d4-466448c733b9",
+        "title": "经营报告指标口径说明",
+        "source_url": null,
+        "ordinal": 0,
+        "heading_path": [
+          "经营报告指标口径说明"
+        ],
+        "fts_score": 0.0,
+        "lexical_hits": 2,
+        "title_hits": 2,
+        "fts_rank": 7,
+        "vector_score": 0.08540827,
+        "vector_rank": 9,
+        "rrf_score": 0.01481722,
+        "rerank_score": 0.01481722,
+        "retrieval_mode": "hybrid",
+        "embedding_provider": "local_hash",
+        "potential_injection": false,
+        "excerpt": "> 项目模拟文档。指标与 OlistOps 项目代码保持一致。"
+      },
+      {
+        "chunk_id": "ed429e43-9661-4363-8544-3de0b3a316f4",
+        "document_id": "a905dd0f-10e1-41ef-a522-ed91090e233f",
+        "title": "包装与发货检查清单",
+        "source_url": null,
+        "ordinal": 1,
+        "heading_path": [
+          "包装与发货检查清单",
+          "发货前"
+        ],
+        "fts_score": 0.0,
+        "lexical_hits": 3,
+        "title_hits": 3,
+        "fts_rank": 3,
+        "vector_score": 0.03618678,
+        "vector_rank": 28,
+        "rrf_score": 0.01474567,
+        "rerank_score": 0.01474567,
+        "retrieval_mode": "hybrid",
+        "embedding_provider": "local_hash",
+        "potential_injection": false,
+        "excerpt": "核对商品数量、尺寸、重量和易碎属性；确认运输标签清晰且不覆盖封口；记录交给承运商的时间。包装材料应能限制商品在箱内移动，液体、易碎品和尖锐物品需要额外隔离。"
+      },
+      {
+        "chunk_id": "c9a62986-68b4-47db-9c86-58a593a7b4cc",
+        "document_id": "a3041eb4-a4ea-4837-8c72-2cc6fc86aaec",
+        "title": "证据校验与报告规范",
+        "source_url": null,
+        "ordinal": 1,
+        "heading_path": [
+          "证据校验与报告规范",
+          "证据门控"
+        ],
+        "fts_score": 0.0,
+        "lexical_hits": 3,
+        "title_hits": 2,
+        "fts_rank": 6,
+        "vector_score": 0.06106073,
+        "vector_rank": 17,
+        "rrf_score": 0.01461039,
+        "rerank_score": 0.01461039,
+        "retrieval_mode": "hybrid",
+        "embedding_provider": "local_hash",
+        "potential_injection": false,
+        "excerpt": "数据结论必须有结构化指标工具结果，流程建议必须有知识片段或明确标注为一般性建议。引用的片段应真正包含支撑内容。结构化数据与知识文档冲突时，报告应同时声明冲突，不得静默选择一方。"
+      }
+    ]
+  },
+  "database": {
+    "raw_counts": {
+      "customers": 99441,
+      "geolocation": 1000163,
+      "orders": 99441,
+      "order_items": 112650,
+      "order_payments": 103886,
+      "order_reviews": 99224,
+      "products": 32951,
+      "sellers": 3095,
+      "category_translation": 71
+    },
+    "mart_counts": {
+      "mart_order_fulfillment": 99441,
+      "mart_seller_order_fulfillment": 100010,
+      "mart_category_order_fulfillment": 99470,
+      "mart_review_analysis_base": 99224,
+      "mart_payment_analysis_base": 101686,
+      "mart_seller_performance_monthly": 16441,
+      "mart_category_performance_monthly": 1283
+    },
+    "date_range": {
+      "start_date": "2016-09-04",
+      "end_date": "2018-10-17"
+    }
+  },
+  "agent": {
+    "run_id": "d38715fa-9bf0-47e5-933d-7e48313efb8d",
+    "status": "completed",
+    "intent": "delivery_analysis",
+    "model_used": "ollama:qwen2.5:3b",
+    "critic_report": {
+      "score": 1.0,
+      "checks": {
+        "non_empty": true,
+        "markdown_heading": true,
+        "citation_coverage": true,
+        "citation_validity": true,
+        "no_prompt_leakage": true,
+        "section_structure": true
+      },
+      "passed": true,
+      "corrected": false,
+      "expected_citations": [
+        "K-001",
+        "K-002",
+        "K-003",
+        "K-004",
+        "K-005"
+      ],
+      "observed_citations": [
+        "K-001",
+        "K-002",
+        "K-003",
+        "K-004",
+        "K-005"
+      ]
+    },
+    "nodes": [
+      "normalize_request",
+      "route_intent",
+      "build_plan",
+      "run_analytics",
+      "retrieve_knowledge",
+      "validate_evidence",
+      "synthesize",
+      "critic",
+      "finalize"
+    ],
+    "tools": [
+      "olist.get_delivery_performance",
+      "olist.compare_late_vs_on_time_reviews",
+      "olist.get_delivery_performance"
+    ],
+    "retrieval": {
+      "mode": "hybrid",
+      "query": "分析 2018 年 7 月的配送表现，找出延期率最高且订单量不少于 20 的卖家和商品类别，比较延期订单与按时订单的平均评分，并给出改进建议。",
+      "results": [
+        {
+          "title": "卖家绩效复盘 SOP",
+          "citation": "K-001",
+          "fts_rank": 1,
+          "rrf_score": 0.01626334,
+          "vector_rank": 3
+        },
+        {
+          "title": "卖家绩效复盘规范",
+          "citation": "K-002",
+          "fts_rank": 3,
+          "rrf_score": 0.01600312,
+          "vector_rank": 1
+        },
+        {
+          "title": "卖家绩效复盘 SOP",
+          "citation": "K-003",
+          "fts_rank": 2,
+          "rrf_score": 0.01600302,
+          "vector_rank": 4
+        },
+        {
+          "title": "月度趋势分析规范",
+          "citation": "K-004",
+          "fts_rank": 8,
+          "rrf_score": 0.01460084,
+          "vector_rank": 10
+        },
+        {
+          "title": "配送异常分级规则",
+          "citation": "K-005",
+          "fts_rank": 11,
+          "rrf_score": 0.01459564,
+          "vector_rank": 2
+        }
+      ],
+      "result_count": 5
+    },
+    "answer": "# OlistOps 分析报告\n\n## 一、延期率最高且订单量不少于 20 的卖家和商品类别分析\n\n根据提供的数据，我们筛选出在 2018 年 7 月期间，订单量不少于 20 的卖家及其对应的商品类别，并计算了这些卖家的延期率。以下是具体结果：\n\n### 卖家延迟配送情况\n- **seller_id: 06a2c3af7b3aee5d69171b0e14f0ee87**：订单量为 71，其中 30 符合延期条件，其延期率为 42.25%。\n- **seller_id: 8b9d6eec4a7eb7d0f9d579ce0b38324d**：订单量为 22，其中 4 符合延期条件，其延期率为 18.18%。\n- **seller_id: 7c67e1448b00f6e969d365cea6b010ab**：订单量为 37，其中 5 符合延期条件，其延期率为 13.51%。\n- **seller_id: 7a67c85e85bb2ce8582c35f2203ad736**：订单量为 23，其中 3 符合延期条件，其延期率为 13.04%。\n- **seller_id: 213b25e6f54661939f11710a6fddb871**：订单量为 33，其中 3 符合延期条件，其延期率为 9.09%。\n\n### 商品类别延迟配送情况\n- **category: office_furniture**：订单量为 62，其中 9 符合延期条件，其延期率为 14.52%。\n- **category: furniture_living_room**：订单量为 49，其中 5 符合延期条件，其延期率为 10.20%。\n- **category: health_beauty**：订单量为 699，其中 68 符合延期条件，其延期率为 9.73%。\n- **category: art**：订单量为 21，其中 2 符合延期条件，其延期率为 9.52%。\n- **category: books_general_interest**：订单量为 25，其中 2 符合延期条件，其延期率为 8.00%。\n\n### 延迟率与平均评分对比\n根据提供的数据，我们计算了延迟订单和按时订单的平均评分，并进行了比较。结果如下：\n- **late delivery rate**: -1.25\n\n## 二、改进建议\n\n根据以上分析，以下是一些改进措施：\n\n### 对于卖家\n- 针对延期率较高的卖家（如 seller_id: 06a2c3af7b3aee5d69171b0e14f0ee87），应进行深入调查，找出其延迟配送的原因。可能涉及物流、仓储管理或沟通不畅等问题。\n- 对于商品类别 office_furniture 和 health_beauty 的卖家，建议加强与客户的沟通，确保订单信息准确无误，并提供更详细的商品描述和图片。\n\n### 对于商品类别\n- 对于商品类别 art 和 books_general_interest，应优化物流配送流程，提高配送效率。同时，可以考虑增加对这些类别的客户服务支持，以提升客户满意度。\n- 对于商品类别 furniture_living_room 的卖家，建议加强与客户的沟通，确保订单信息准确无误，并提供更详细的商品描述和图片。\n\n### 总结\n以上分析基于提供的数据进行，但请注意，仅凭一到两个月的数据变化无法得出长期趋势结论。因此，在采取任何改进措施之前，请务必验证这些结果的可靠性并考虑其他可能影响因素。\n\n## 补充证据引用\n- [K-001] 卖家绩效复盘 SOP：1. 先验证 seller_id 存在并锁定购买时间范围。 2. 对比同周期有足够订单的卖家基线，不使用小样本极值作为目标。 3. 联合查看延期率和评分，不把相关性写成因果结论。 4. 抽取匿名评论证据，按配送、商品质量、包装、沟通和其他标记主题。 5. 为每条建议记录数据依据、预期影响、成本和负责人。 正式报告属于持久化写操作，必须由人工批准；拒绝审批后只能保留临时草稿。\n- [K-002] 卖家绩效复盘规范：卖家绩效至少包含订单量、商品金额代理值、平均订单金额、运费占比、延期率和平均评分。同行基线仅纳入选定期间内订单量不少于五单的卖家，用于描述性比较。\n- [K-003] 卖家绩效复盘 SOP：复盘至少包含订单量、商品金额代理值、客单价、运费占比、延期率、平均延期天数、平均评分和低分率。多商品订单先聚合到订单与卖家粒度，禁止直接连接订单商品明细后重复计算评分。\n- [K-004] 月度趋势分析规范：月度趋势至少同时观察订单量、已送达订单量、商品金额代理值、运费、延期率、平均配送天数和平均评分。延期率的分母只包括同时存在实际送达日期和预计送达日期的订单，不能用全部订单量替代。 首月和末月可能只覆盖部分日期。跨月比较前应检查月份是否完整，并注意节日、促销和数据截断等外部因素。仅凭一到两个月的变化不得声明长期趋势。\n- [K-005] 配送异常分级规则：- P1：同一卖家或商品类别在最近统计周期内订单量不少于 20，延期率高于同周期基线 15 个百分点，且平均延期天数超过 5 天。 - P2：延期率高于基线 8 个百分点，或平均延期天数在 3—5 天。 - P3：单个订单异常或样本不足 20，仅进入观察列表，不据此评价卖家整体表现。",
+    "answer_length": 2237
+  }
+}

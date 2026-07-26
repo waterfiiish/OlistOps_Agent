@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OlistOps Agent 项目介绍与技术报告</title>
+<style>
+@page {
+  size: A4;
+  margin: 17mm 16mm 18mm 17mm;
+}
+* {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  color: #15263d;
+  background: #ffffff;
+  font-family: "Times New Roman", "宋体", serif;
+  font-size: 10.5pt;
+  line-height: 1.58;
+}
+body {
+  max-width: 178mm;
+  margin: 0 auto;
+}
+p {
+  margin: 0 0 7pt;
+  text-align: justify;
+  text-indent: 2em;
+  orphans: 2;
+  widows: 2;
+}
+.document-title {
+  margin: 52mm 0 8pt;
+  padding: 12pt 0;
+  border-top: 2.2pt solid #173b64;
+  border-bottom: 2.2pt solid #173b64;
+  color: #173b64;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  font-weight: bold;
+  text-align: center;
+}
+.subtitle {
+  margin: 7pt 0;
+  text-indent: 0;
+  text-align: center;
+}
+h1, h2, h3 {
+  break-after: avoid-page;
+  page-break-after: avoid;
+  font-size: 10.5pt;
+  font-weight: bold;
+  line-height: 1.45;
+  color: #173b64;
+}
+h1 {
+  margin: 0 0 12pt;
+  padding: 5pt 7pt;
+  border-left: 5pt solid #e05a3f;
+  background: #e9eff6;
+}
+h2 {
+  margin: 11pt 0 5pt;
+  padding-bottom: 2pt;
+  border-bottom: 0.6pt solid #a9b7c7;
+}
+h3 { margin: 9pt 0 4pt; }
+table {
+  width: 100%;
+  margin: 7pt 0 10pt;
+  border-collapse: collapse;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  font-size: 10.5pt;
+}
+thead { display: table-header-group; }
+th, td {
+  border: 0.6pt solid #8394a8;
+  padding: 4.5pt 5pt;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+th {
+  color: #ffffff;
+  background: #173b64;
+  font-weight: bold;
+}
+tr:nth-child(even) td { background: #f5f7fa; }
+ul, ol {
+  margin: 4pt 0 9pt 22pt;
+  padding: 0;
+}
+li {
+  margin: 0 0 4pt;
+  text-align: justify;
+}
+.note {
+  margin: 8pt 0 10pt;
+  padding: 7pt 9pt;
+  border-left: 4pt solid #e05a3f;
+  background: #fff4e8;
+  text-align: justify;
+}
+pre {
+  margin: 7pt 0 10pt;
+  padding: 8pt 9pt;
+  color: #12233b;
+  background: #eef2f7;
+  border: 0.6pt solid #9eacba;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: "Times New Roman", "宋体", serif;
+  font-size: 10.5pt;
+  line-height: 1.45;
+  break-inside: avoid;
+}
+figure {
+  margin: 10pt 0 12pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+figure img {
+  display: block;
+  width: 100%;
+  max-height: 226mm;
+  object-fit: contain;
+  border: 0.6pt solid #8394a8;
+}
+figcaption {
+  margin-top: 4pt;
+  text-align: center;
+  font-weight: bold;
+}
+.page-break {
+  break-before: page;
+  page-break-before: always;
+}
+@media screen {
+  body {
+    padding: 18mm 16mm;
+    box-shadow: 0 0 18px rgba(0,0,0,.12);
+  }
+}
+</style>
+</head>
+<body>
+<h1 class="document-title">OlistOps Agent 项目介绍与技术报告</h1><p class="subtitle">本地可运行的企业运营分析 Agent · v0.2.0</p><p class="subtitle">数据、RAG、API、工作流、部署、审计与技术面试说明</p><div class="note">版式约定：正文中文使用宋体五号（10.5 pt）；英文、数字使用 Times New Roman 10.5 pt。报告内图片均为本机当前项目的真实页面或实时结果截图。</div><table><thead><tr><th>文档项</th><th>内容</th></tr></thead><tbody><tr><td>项目目录</td><td>E:\Data\OlistOps_Agent</td></tr><tr><td>证据采集时间</td><td>2026-07-25 09:43:44 +0800</td></tr><tr><td>实时 Agent Run ID</td><td>d38715fa-9bf0-47e5-933d-7e48313efb8d</td></tr><tr><td>实时运行状态</td><td>completed</td></tr><tr><td>数据库</td><td>PostgreSQL 16.14</td></tr><tr><td>报告生成方式</td><td>同一结构化内容生成 DOCX 与 HTML，再由 Edge 打印为 PDF</td></tr></tbody></table><p>阅读建议：业务或产品人员先看“项目定位、企业数据与典型场景”；开发人员重点看“系统架构、API、RAG、工作流”；技术面试官可直接查看“实现细节、质量验证、安全边界与面试问题”。</p><div class="page-break"></div><h1 class="h1">目录与快速结论</h1><table><thead><tr><th>章节</th><th>主要回答的问题</th></tr></thead><tbody><tr><td>1. 项目定位</td><td>它解决什么问题，当前做到什么程度？</td></tr><tr><td>2. 企业数据</td><td>用了什么数据，规模多大，怎样查看，怎样保证口径？</td></tr><tr><td>3. 系统架构</td><td>前端、API、Agent、工具、数据库、模型如何协作？</td></tr><tr><td>4. Agent 能力</td><td>支持哪些业务问题，如何规划和调用工具？</td></tr><tr><td>5. RAG</td><td>如何切块、建向量、混合检索、引用和评测？</td></tr><tr><td>6. API</td><td>客户端如何连接，会话、异步运行、SSE、Trace 怎样使用？</td></tr><tr><td>7. 真实运行</td><td>一次请求实际走过哪些节点，有哪些可审计证据？</td></tr><tr><td>8. 质量与安全</td><td>测试、评测、只读约束、注入防护和限制是什么？</td></tr><tr><td>9. 部署运维</td><td>从零启动、健康检查、重建数据与知识库怎么做？</td></tr><tr><td>10. 面试说明</td><td>技术取舍、追问与可扩展方向如何回答？</td></tr></tbody></table><div class="note">快速结论：项目已经具备可运行的 LangGraph 多阶段工作流、10 个受控分析工具、7 个 MART、PostgreSQL FTS + pgvector + RRF 混合 RAG、Ollama 本地模型、Critic、SSE 与 Trace。它是完整的本地工程样例，但不是已经具备租户、鉴权、审批恢复和高可用队列的生产 SaaS。</div><div class="page-break"></div><h1 class="h1">1. 项目定位与业务价值</h1><h2 class="h2">1.1 一句话定位</h2><p>OlistOps Agent 是一个面向电商运营人员的“证据驱动分析 Agent”。用户用自然语言提出订单、销售、履约、卖家、评价、支付、区域或运费问题；系统先把问题归类并生成计划，再调用白名单中的只读分析工具获取结构化指标，同时从企业知识库检索制度和操作规范，最后合成带证据引用的报告并执行质量审查。</p><h2 class="h2">1.2 为什么不是普通聊天机器人</h2><table><thead><tr><th>普通问答风险</th><th>OlistOps 的工程控制</th></tr></thead><tbody><tr><td>模型凭记忆给数字</td><td>经营数字只能来自参数化 SQL 与 MART 工具结果</td></tr><tr><td>模型任意生成 SQL</td><td>Agent 无自由 SQL 工具，只能调用注册表中的只读工具</td></tr><tr><td>建议缺少制度依据</td><td>RAG 检索知识片段，并生成 K-001 等可核对引用</td></tr><tr><td>执行过程不可追踪</td><td>记录 Run、Step、Tool Call、Event 和 Checkpoint</td></tr><tr><td>输出格式不稳定</td><td>Evidence Gate + Critic 校验非空、结构、引用覆盖和泄漏</td></tr><tr><td>外部模型不可用</td><td>Ollama 可本地推理，并保留确定性模板降级路径</td></tr></tbody></table><h2 class="h2">1.3 当前实现边界</h2><ul><li>已实现：数据下载与装载、RAW/STAGING/MART、数据质量报告、10 个分析工具、10 类意图、9 节点工作流、混合 RAG、Critic、REST/SSE/Trace API 和 React UI。</li><li>已实现：本地 PostgreSQL 16.14、pgvector、Ollama qwen2.5:3b，以及无需 API Key 的 local_hash 384 维向量回退。</li><li>尚未实现为生产级：正式登录鉴权、租户隔离、细粒度文档 ACL、TLS、可靠任务队列、分布式限流、审批恢复、完整可观测平台和自动扩缩容。</li><li>正式业务使用前仍需替换模拟制度文档、接入组织权限与真实 SLA，并由数据责任人确认指标口径。</li></ul><figure><img src="assets/01_web_home.png" alt="图 1　当前本地 React 场景工作台。截图同时展示数据库、模型、RAG 状态和可提问场景。"><figcaption>图 1　当前本地 React 场景工作台。截图同时展示数据库、模型、RAG 状态和可提问场景。</figcaption></figure><div class="page-break"></div><h1 class="h1">2. 使用了什么企业数据，以及数据怎样看</h1><h2 class="h2">2.1 数据来源与合规定位</h2><p>项目使用 Brazilian E-Commerce Public Dataset by Olist（Olist 巴西电商公开数据集）。它是经过匿名化处理的公开电商交易数据，覆盖订单、订单商品、支付、评价、客户、卖家、商品、地理位置和品类翻译。项目把它作为“企业级关系数据建模与运营分析”的训练数据，不代表 Olist 当前生产系统，也不得用于重新识别个人或商户。</p><div class="note">重要区分：交易数据是真实公开、已匿名化的数据；data/knowledge_seed 中的制度、SOP 和报告规范是为本项目构造的模拟企业知识，用于演示 RAG 与证据引用，不应被描述为 Olist 公司的真实内部政策。</div><h2 class="h2">2.2 当前本地数据库的真实规模</h2><table><thead><tr><th>RAW 表</th><th>当前行数</th><th>业务含义</th></tr></thead><tbody><tr><td>raw.customers</td><td>99,441</td><td>匿名客户与城市/州</td></tr><tr><td>raw.geolocation</td><td>1,000,163</td><td>邮编前缀与经纬度</td></tr><tr><td>raw.orders</td><td>99,441</td><td>订单状态和关键时间戳</td></tr><tr><td>raw.order_items</td><td>112,650</td><td>订单商品、卖家、价格、运费</td></tr><tr><td>raw.order_payments</td><td>103,886</td><td>支付方式、分期和金额</td></tr><tr><td>raw.order_reviews</td><td>99,224</td><td>评分、标题、文本和时间</td></tr><tr><td>raw.products</td><td>32,951</td><td>商品品类和物理属性</td></tr><tr><td>raw.sellers</td><td>3,095</td><td>匿名卖家与地区</td></tr><tr><td>raw.category_translation</td><td>71</td><td>品类葡英翻译</td></tr></tbody></table><p>当前订单购买时间范围为 2016-09-04 至 2018-10-17。这是本次报告直接查询 PostgreSQL 得出的范围；不是手工写入报告的静态数字。</p><figure><img src="assets/06_data_actual.png" alt="图 2　当前 PostgreSQL 实例的 RAW 与 MART 行数实时快照。"><figcaption>图 2　当前 PostgreSQL 实例的 RAW 与 MART 行数实时快照。</figcaption></figure><div class="page-break"></div><h2 class="h2">2.3 RAW、STAGING、MART 三层怎样分工</h2><table><thead><tr><th>层</th><th>职责</th><th>代表对象</th><th>为什么这样设计</th></tr></thead><tbody><tr><td>RAW</td><td>保留源 CSV 的原始字段和粒度，原则上只读</td><td>raw.orders、raw.order_items</td><td>可追溯、可重复装载，防止清洗逻辑污染源数据</td></tr><tr><td>STAGING</td><td>类型转换、时间字段解析、基础清洗和统一命名</td><td>staging.stg_orders</td><td>隔离脏数据与分析模型，集中定义字段语义</td></tr><tr><td>MART</td><td>按订单、卖家、品类、评价、支付和月份预聚合</td><td>mart.mart_order_fulfillment 等</td><td>避免 Agent 临时拼接复杂 JOIN，稳定粒度和指标口径</td></tr></tbody></table><table><thead><tr><th>MART</th><th>当前行数</th><th>主要用途</th></tr></thead><tbody><tr><td>mart_order_fulfillment</td><td>99,441</td><td>订单履约</td></tr><tr><td>mart_seller_order_fulfillment</td><td>100,010</td><td>卖家-订单履约，消除多商品重复</td></tr><tr><td>mart_category_order_fulfillment</td><td>99,470</td><td>品类-订单履约</td></tr><tr><td>mart_review_analysis_base</td><td>99,224</td><td>评价分析</td></tr><tr><td>mart_payment_analysis_base</td><td>101,686</td><td>支付分析</td></tr><tr><td>mart_seller_performance_monthly</td><td>16,441</td><td>卖家月度表现</td></tr><tr><td>mart_category_performance_monthly</td><td>1,283</td><td>品类月度表现</td></tr></tbody></table><h2 class="h2">2.4 数据怎么查看</h2><ol><li>最直观：浏览器打开 data/processed/data_quality_report.html，查看行数、主键重复、孤儿记录、时间缺失和数值范围。</li><li>用 Swagger：访问 http://127.0.0.1:8000/docs，展开 analytics 接口并输入日期、group_by、top_k 等参数。</li><li>用 Agent UI：访问 http://127.0.0.1:5173，用自然语言提问，再打开 Trace 看工具参数和返回摘要。</li><li>用 SQL：只查询 mart 或 staging 层；排查源数据时再对 raw 做只读查询。</li><li>用 API：适合 Notebook、BI 中间层或其他服务，通过 JSON 获取结构化结果。</li></ol><pre><code># PowerShell：直接查看一个 MART 的前 10 行
+&amp; &quot;.\.runtime\pgsql\bin\psql.exe&quot; `
+  &quot;postgresql://olistops:olistops@127.0.0.1:55432/olistops&quot; `
+  -c &quot;SELECT * FROM mart.mart_order_fulfillment LIMIT 10;&quot;
+
+# 查看本地数据质量报告
+Start-Process &quot;.\data\processed\data_quality_report.html&quot;</code></pre><h2 class="h2">2.5 数据质量怎样解释</h2><p>质量报告执行确定性检查：核心表行数、业务键重复、跨表孤儿、时间字段完整性和数值范围。例如 order_reviews 允许同一 order_id 存在多条评价记录，因此报告中 duplicate_review_ids 不应被机械地当作数据库错误；它需要在 MART 建模时通过明确粒度处理。真正需要阻断的情况是订单主键重复、订单商品找不到订单、订单客户找不到客户等。</p><figure><img src="assets/02_data_quality.png" alt="图 3　实际生成的数据质量报告。核心业务键和跨表完整性检查均有可核对结果。"><figcaption>图 3　实际生成的数据质量报告。核心业务键和跨表完整性检查均有可核对结果。</figcaption></figure><div class="page-break"></div><h1 class="h1">3. 系统架构与端到端数据流</h1><h2 class="h2">3.1 分层架构</h2><table><thead><tr><th>层</th><th>主要技术</th><th>职责</th></tr></thead><tbody><tr><td>交互层</td><td>React + TypeScript + Vite</td><td>场景入口、会话、流式进度、报告与 Trace</td></tr><tr><td>API 层</td><td>FastAPI + Pydantic</td><td>REST、SSE、参数校验、健康检查、OpenAPI</td></tr><tr><td>运行层</td><td>RunService + LangGraph</td><td>异步运行、状态机、节点编排、Checkpoint</td></tr><tr><td>工具层</td><td>Tool Registry + AnalyticsService</td><td>白名单工具、参数 Schema、只读 SQL</td></tr><tr><td>数据层</td><td>PostgreSQL 16 + SQLAlchemy</td><td>RAW/STAGING/MART、Run/Trace、知识库</td></tr><tr><td>检索层</td><td>FTS + pgvector + Weighted RRF</td><td>关键词与向量候选融合、引用生成</td></tr><tr><td>模型层</td><td>Ollama qwen2.5:3b</td><td>基于工具事实与知识证据进行文本合成</td></tr><tr><td>质量层</td><td>Evidence Gate + Critic</td><td>证据门控、引用覆盖、结构和泄漏检查</td></tr></tbody></table><h2 class="h2">3.2 一次问题的调用链</h2><ol><li>浏览器先 POST /api/v1/sessions 创建会话。</li><li>用户消息 POST 到 /api/v1/sessions/{session_id}/messages，API 返回 202 和 run_id。</li><li>RunService 启动 LangGraph，并把运行状态写入 PostgreSQL。</li><li>normalize_request 清理输入；route_intent 识别业务意图；build_plan 选择工具计划。</li><li>run_analytics 只调用注册表中的分析工具，SQL 参数由 Pydantic 模型验证。</li><li>retrieve_knowledge 执行混合 RAG，得到知识片段和 K-xxx 引用。</li><li>validate_evidence 确认数据结论、流程建议和引用之间的对应关系。</li><li>synthesize 把结构化指标与知识证据交给本地模型；模型不可用时使用模板降级。</li><li>critic 检查输出；finalize 保存最终消息并发布 SSE 事件。</li><li>前端通过 /events 接收状态与 token，通过 /trace 查看节点、工具、检索和错误。</li></ol><h2 class="h2">3.3 为什么采用 LangGraph</h2><p>项目需要的不是单轮 prompt，而是有固定顺序、可持久化状态、可观测节点和明确失败边界的业务流程。LangGraph 允许把规范化、路由、规划、分析、检索、证据校验、合成、审查和结束拆成节点；节点输入输出使用 AgentState 传递。这样能单测每个阶段，也能在 Trace 中回答“模型为什么得到这个结论”。当前检查点已落 PostgreSQL，但审批恢复和跨进程可靠任务恢复仍列为后续工作。</p><figure><img src="assets/03_swagger_api.png" alt="图 4　当前 FastAPI 自动生成的 OpenAPI/Swagger 页面，展示会话、SSE、Trace、知识库和分析接口。"><figcaption>图 4　当前 FastAPI 自动生成的 OpenAPI/Swagger 页面，展示会话、SSE、Trace、知识库和分析接口。</figcaption></figure><div class="page-break"></div><h1 class="h1">4. Agent 具体能做什么</h1><h2 class="h2">4.1 十类业务意图</h2><table><thead><tr><th>Intent</th><th>典型问题</th><th>主要工具</th></tr></thead><tbody><tr><td>operations_overview</td><td>整体订单、销售、履约状态如何？</td><td>overview + sales + delivery</td></tr><tr><td>sales_summary</td><td>某时间段 GMV 代理值、客单价如何？</td><td>get_sales_summary</td></tr><tr><td>delivery_analysis</td><td>哪些卖家或品类延迟率高？</td><td>get_delivery_performance</td></tr><tr><td>trend_analysis</td><td>月度订单、销售、履约趋势如何？</td><td>get_monthly_trend</td></tr><tr><td>seller_diagnostic</td><td>一个卖家的综合表现和评论主题？</td><td>get_seller_diagnostic</td></tr><tr><td>review_analysis</td><td>延迟与低分是否相关，差评说了什么？</td><td>review tools</td></tr><tr><td>geography_analysis</td><td>不同州的订单、运费和时效怎样？</td><td>get_geography_performance</td></tr><tr><td>freight_analysis</td><td>运费占比高的地区/品类有哪些？</td><td>get_freight_analysis</td></tr><tr><td>payment_analysis</td><td>支付方式、分期和客单价怎样？</td><td>get_payment_analysis</td></tr><tr><td>mixed</td><td>跨多个域的复合问题</td><td>按计划组合白名单工具</td></tr></tbody></table><h2 class="h2">4.2 十个只读 Analytics Tools</h2><table><thead><tr><th>工具名</th><th>作用</th><th>关键输入</th></tr></thead><tbody><tr><td>olist.get_operations_overview</td><td>订单状态和经营总览</td><td>日期范围</td></tr><tr><td>olist.get_sales_summary</td><td>订单数、销售额代理值、客单价</td><td>日期范围</td></tr><tr><td>olist.get_delivery_performance</td><td>延迟率、配送天数、分组排名</td><td>日期、group_by、top_k</td></tr><tr><td>olist.get_monthly_trend</td><td>月度经营与履约趋势</td><td>日期范围</td></tr><tr><td>olist.get_geography_performance</td><td>客户州/卖家州表现</td><td>日期、维度、top_k</td></tr><tr><td>olist.get_freight_analysis</td><td>运费及运费占比</td><td>日期、group_by、top_k</td></tr><tr><td>olist.get_payment_analysis</td><td>支付类型、分期、金额</td><td>日期、top_k</td></tr><tr><td>olist.compare_late_vs_on_time_reviews</td><td>延迟与按时订单评分对比</td><td>日期范围</td></tr><tr><td>olist.search_review_samples</td><td>匿名低分评论样本</td><td>日期、筛选、limit</td></tr><tr><td>olist.get_seller_diagnostic</td><td>卖家多指标诊断</td><td>seller_id、日期</td></tr></tbody></table><p>工具返回的是结构化 JSON，并带有口径、过滤条件和数据新鲜度信息。模型不参与数值计算；其职责是解释工具结果、连接知识证据并组织报告。多商品和多卖家订单先在 MART 中聚合到目标粒度，避免直接 JOIN 明细造成评分或订单数重复。</p><h2 class="h2">4.3 建议从这些问题开始</h2><ul><li>分析 2018 年 7 月的配送表现，找出订单量不少于 20 的高延迟卖家与品类。</li><li>比较延迟订单与按时订单的平均评分，并给出有证据的改进建议。</li><li>按月查看 2017 年至 2018 年的订单量、销售额代理值、延迟率与平均评分。</li><li>分析不同客户州的订单量、平均运费、平均配送天数和延迟率。</li><li>检查支付方式和分期数的金额分布，但不要把支付记录金额简单当作公司财务收入。</li></ul><div class="page-break"></div><h1 class="h1">5. RAG 到底如何实现、如何使用</h1><h2 class="h2">5.1 当前知识库是什么</h2><p>当前数据库有 16 篇项目内模拟知识文档，切分为 60 个 Chunk，其中 60 个已有向量，覆盖率为 100%。内容包括配送异常分级、卖家复盘 SOP、包装发货检查、指标口径、报告证据规范、评论处理和月度趋势规范等。文档源文件位于 data/knowledge_seed。</p><h2 class="h2">5.2 入库流水线</h2><ol><li>读取 Markdown 文件，提取标题、来源元数据和正文。</li><li>按照 Markdown 标题层级维护 heading_path；以约 600 字符为目标切块，尽量不跨语义段。</li><li>对规范化后的文档和 Chunk 计算 SHA-256，用于幂等更新和变更识别。</li><li>保存 document、chunk、ordinal、heading_path、token 近似值和 tsvector。</li><li>调用 EmbeddingProvider 生成 384 维向量；当前默认是 local_hash。</li><li>将向量写入 pgvector 列，并用 HNSW cosine 索引支持近邻搜索。</li><li>更新文档状态和 embedding 覆盖率；失败文档保留错误信息，便于重建。</li></ol><h2 class="h2">5.3 local_hash 是什么，为什么必须说清楚</h2><p>local_hash 是一个确定性、离线、无 API Key 的特征哈希向量器。它把规范化 token 和字符 n-gram 哈希到固定维度并归一化，优点是安装即用、结果可重复、单元测试稳定；缺点是它不是经过语义训练的 Embedding 模型，对同义改写、跨语言和复杂语义的泛化能力有限。因此本项目把它定位为工程回退和离线演示 provider，而不是声称它等价于主流语义Embedding。生产化时应替换成经业务语料验证的 embedding 服务，并保留相同 Provider 接口。</p><h2 class="h2">5.4 混合检索流程</h2><table><thead><tr><th>分支</th><th>实现</th><th>擅长</th><th>局限</th></tr></thead><tbody><tr><td>FTS/词法</td><td>PostgreSQL tsvector + tsquery，并结合查询扩展、词元、n-gram、ILIKE 和标题命中</td><td>业务术语、ID、明确关键词、短语</td><td>同义表达和隐含语义较弱</td></tr><tr><td>Vector</td><td>pgvector cosine，相似度为 1 - cosine distance；HNSW 取候选</td><td>弱词面匹配、相似片段</td><td>当前 local_hash 的语义能力有限</td></tr><tr><td>Fusion</td><td>按 Weighted Reciprocal Rank Fusion 合并两路排名</td><td>不要求两路分数同尺度，容错稳定</td><td>权重和 k 需要用评测集校准</td></tr></tbody></table><pre><code>score(d) = 0.75 / (60 + rank_fts(d))
+         + 0.25 / (60 + rank_vector(d))
+
+cosine_similarity(d, q) = 1 - (embedding_d &lt;=&gt; embedding_q)
+
+当前默认：fts_weight=0.75，vector_weight=0.25，rrf_k=60</code></pre><p>检索时分别扩大 FTS 和 Vector 候选池，再按上述 RRF 分数排序，最后取 top_k。词法分支权重较高，是因为当前向量 provider 是 local_hash；如果切换到高质量语义Embedding，应重新跑 Gold Set 并调整权重。reranker 接口已留出，但当前未启用。</p><figure><img src="assets/04_rag_actual.png" alt="图 5　实时 Hybrid RAG 查询：16 篇文档、60/60 向量覆盖，以及每条结果的 FTS Rank、Vector Rank 与 RRF Score。"><figcaption>图 5　实时 Hybrid RAG 查询：16 篇文档、60/60 向量覆盖，以及每条结果的 FTS Rank、Vector Rank 与 RRF Score。</figcaption></figure><div class="page-break"></div><h2 class="h2">5.5 引用、证据门控与注入防护</h2><ul><li>检索结果进入 AgentState 后按顺序分配 K-001、K-002 等引用 ID；报告末尾保留标题和证据摘录，用户可以回溯到具体 Chunk。</li><li>数据结论必须来自 Analytics Tool；知识片段只能支持流程、制度和解释，不得代替数据证明“某个卖家实际延迟”。</li><li>Evidence Gate 检查是否有工具事实、是否有知识证据、引用是否与检索集合一致；缺少必要证据时应降级或明确声明限制。</li><li>知识入库和检索阶段标记潜在 prompt injection；进入模型上下文前清理类似“忽略系统指令”“泄露密钥”等文本，知识文档始终按不可信数据处理。</li><li>Critic 检查非空、Markdown 标题、章节结构、引用覆盖、引用有效性和 prompt 泄漏；当前真实运行得分为 1.0，passed=True。</li></ul><h2 class="h2">5.6 RAG 怎么实际使用</h2><pre><code># 查看知识库状态
+Invoke-RestMethod http://127.0.0.1:8000/api/v1/knowledge/status
+
+# 直接执行混合检索
+$body = @{
+  query = &quot;配送延期和包装检查应该如何处理？&quot;
+  limit = 5
+  mode  = &quot;hybrid&quot;
+} | ConvertTo-Json
+Invoke-RestMethod -Method Post `
+  -Uri http://127.0.0.1:8000/api/v1/knowledge/search `
+  -ContentType &quot;application/json; charset=utf-8&quot; `
+  -Body $body
+
+# 修改 data/knowledge_seed 后重建
+python scripts/build_knowledge.py
+
+# 运行检索 Gold Set 评测
+python scripts/evaluate_retrieval.py</code></pre><h2 class="h2">5.7 当前检索评测怎么读</h2><table><thead><tr><th>模式</th><th>Recall@5</th><th>MRR</th><th>Top-1</th><th>解释</th></tr></thead><tbody><tr><td>Hybrid</td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>16 个回归问题均在首位命中期望文档</td></tr><tr><td>FTS</td><td>1.0000</td><td>1.0000</td><td>1.0000</td><td>模拟知识中的关键词区分度较高</td></tr><tr><td>Vector</td><td>0.7500</td><td>0.5521</td><td>0.4375</td><td>local_hash 能补充召回，但语义泛化有限</td></tr></tbody></table><div class="note">这些指标只证明当前 16 条项目内 Gold Case 的回归结果，不代表开放世界或生产语料的通用准确率。下一步应增加同义改写、否定问题、跨语言、相似政策、无答案、注入文本和时间版本冲突用例，并报告 Recall@k、nDCG、引用正确率与端到端答案忠实度。</div><div class="page-break"></div><h1 class="h1">6. API 如何连接</h1><h2 class="h2">6.1 接口设计</h2><table><thead><tr><th>方法与路径</th><th>用途</th><th>关键返回</th></tr></thead><tbody><tr><td>GET /healthz</td><td>数据库、模型、RAG 健康状态</td><td>status/database/model/rag</td></tr><tr><td>POST /api/v1/sessions</td><td>创建会话</td><td>session_id</td></tr><tr><td>GET /api/v1/sessions/{id}</td><td>查看会话与消息</td><td>session/messages</td></tr><tr><td>POST /api/v1/sessions/{id}/messages</td><td>提交问题</td><td>HTTP 202 + run_id</td></tr><tr><td>GET /api/v1/runs/{id}/events</td><td>SSE 进度与文本流</td><td>event/data</td></tr><tr><td>GET /api/v1/runs/{id}/trace</td><td>审计运行详情</td><td>run/steps/tool_calls/events</td></tr><tr><td>GET /api/v1/tools</td><td>工具目录与输入 Schema</td><td>tool definitions</td></tr><tr><td>GET /api/v1/knowledge/status</td><td>知识库状态</td><td>文档/Chunk/向量/RRF</td></tr><tr><td>GET /api/v1/knowledge/documents</td><td>知识文档列表</td><td>documents</td></tr><tr><td>POST /api/v1/knowledge/search</td><td>直接检索</td><td>rank/score/excerpt</td></tr><tr><td>POST /api/v1/analytics/*</td><td>直接调用确定性分析</td><td>结构化指标</td></tr></tbody></table><h2 class="h2">6.2 为什么提交消息返回 202</h2><p>Agent 可能需要多次 SQL、检索和本地模型推理，不能让一个普通 HTTP 请求长期阻塞。因此消息接口只负责验证输入、创建 Run 并返回 202 Accepted；客户端随后用 run_id 建立SSE 连接。SSE 比 WebSocket 更适合本项目的单向进度流：浏览器原生支持、代理配置简单、事件可按类型消费。需要双向人机审批时，再评估 WebSocket 或持久化 command API。</p><h2 class="h2">6.3 完整 PowerShell 调用示例</h2><pre><code>$base = &quot;http://127.0.0.1:8000&quot;
+
+$session = Invoke-RestMethod -Method Post `
+  -Uri &quot;$base/api/v1/sessions&quot; `
+  -ContentType &quot;application/json; charset=utf-8&quot; `
+  -Body (@{ title = &quot;API 演示&quot; } | ConvertTo-Json)
+
+$accepted = Invoke-RestMethod -Method Post `
+  -Uri &quot;$base/api/v1/sessions/$($session.id)/messages&quot; `
+  -ContentType &quot;application/json; charset=utf-8&quot; `
+  -Body (@{
+    content = &quot;分析 2018 年 7 月配送表现并给出证据化建议&quot;
+  } | ConvertTo-Json)
+
+$runId = $accepted.run_id
+Invoke-RestMethod &quot;$base/api/v1/runs/$runId/trace&quot;</code></pre><h2 class="h2">6.4 Python 客户端示例</h2><pre><code>import time
+import httpx
+
+base = &quot;http://127.0.0.1:8000&quot;
+with httpx.Client(base_url=base, timeout=60, trust_env=False) as client:
+    session = client.post(
+        &quot;/api/v1/sessions&quot;, json={&quot;title&quot;: &quot;Python client&quot;}
+    ).json()
+    accepted = client.post(
+        f&quot;/api/v1/sessions/{session[&#x27;id&#x27;]}/messages&quot;,
+        json={&quot;content&quot;: &quot;分析 2018 年 7 月的配送表现&quot;},
+    ).json()
+    run_id = accepted[&quot;run_id&quot;]
+    while True:
+        trace = client.get(f&quot;/api/v1/runs/{run_id}/trace&quot;).json()
+        if trace[&quot;run&quot;][&quot;status&quot;] in {&quot;completed&quot;, &quot;failed&quot;}:
+            break
+        time.sleep(0.5)
+    print(trace[&quot;run&quot;][&quot;status&quot;], trace[&quot;run&quot;][&quot;intent&quot;])</code></pre><h2 class="h2">6.5 接入其他企业系统时怎么做</h2><p>BI、运营门户或 Notebook 可直接调用 analytics 接口获得确定性 JSON；需要自然语言报告时调用 session/message/events。生产接入应在 API 前增加企业身份提供商、TLS、API Gateway、租户上下文、速率限制和审计主体；工具层必须根据主体权限过滤数据，RAG 文档检索必须在SQL 中加入 ACL/tenant 条件，不能只在前端隐藏。</p><div class="page-break"></div><h1 class="h1">7. 一次真实 Agent 运行的证据</h1><table><thead><tr><th>字段</th><th>本次真实值</th></tr></thead><tbody><tr><td>Run ID</td><td>d38715fa-9bf0-47e5-933d-7e48313efb8d</td></tr><tr><td>状态</td><td>completed</td></tr><tr><td>识别意图</td><td>delivery_analysis</td></tr><tr><td>模型</td><td>ollama:qwen2.5:3b</td></tr><tr><td>节点数</td><td>9</td></tr><tr><td>工具调用数</td><td>3</td></tr><tr><td>知识引用数</td><td>5</td></tr><tr><td>Critic</td><td>score=1.0; passed=True</td></tr></tbody></table><p>本次问题要求分析 2018 年 7 月配送表现、找出高延迟卖家与品类、比较延迟和按时订单评分，并给出改进建议。实际 Trace 顺序为：</p><pre><code>normalize_request → route_intent → build_plan → run_analytics → retrieve_knowledge → validate_evidence → synthesize → critic → finalize</code></pre><p>实际工具调用为：olist.get_delivery_performance；olist.compare_late_vs_on_time_reviews；olist.get_delivery_performance。这些调用参数和结果摘要均保存在 Trace 中。最终报告的经营数字来自 SQL 工具，改进流程由检索到的模拟政策支持。</p><div class="note">真实运行也暴露了当前模型表达的一个改进点：模型曾把平均评分差值写成 “late delivery rate”。Trace 与工具结果使这类语义错误可被发现；后续应把 Critic 从格式/引用检查扩展到单位、指标名和数值一致性检查。报告不把该错误数值作为业务结论。</div><figure><img src="assets/05_agent_actual.png" alt="图 6　真实 Agent Run 的节点、模型、Critic、引用和最终报告截图。Run ID 可在本机 Trace API 复核。"><figcaption>图 6　真实 Agent Run 的节点、模型、Critic、引用和最终报告截图。Run ID 可在本机 Trace API 复核。</figcaption></figure><div class="page-break"></div><h1 class="h1">8. 实现细节：技术面试官通常会追问什么</h1><h2 class="h2">8.1 路由和计划是不是让 LLM 随便决定</h2><p>不是。当前 route_intent 使用受控规则对业务关键词和组合条件分类，build_plan 用 intent→步骤/工具映射生成计划。这样做牺牲一部分开放性，换取演示环境中的可重复性、低延迟和低成本。LLM 主要负责最终语言组织。更复杂版本可以让模型生成结构化 Plan，但必须用 JSON Schema 校验、工具 allowlist、步数上限和策略引擎二次审批。</p><h2 class="h2">8.2 怎样防止模型生成危险 SQL</h2><ul><li>Agent 上下文中没有 execute_sql 工具；只能选择 registry 中注册的十个工具。</li><li>每个工具有 Pydantic 输入模型，日期、分组维度、top_k、seller_id 都被类型和枚举约束。</li><li>SQL 写在 AnalyticsService 中，业务值通过绑定参数传入；动态标识符只来自代码枚举映射。</li><li>工具只读取 STAGING/MART；报告和知识库的写入由独立、明确的应用路径负责。</li><li>生产环境还应使用数据库只读角色、statement_timeout、行级安全和资源配额形成纵深防御。</li></ul><h2 class="h2">8.3 模型和 API 的关系</h2><p>FastAPI 不把用户文本直接转发给模型。RunService 先执行工作流；AnalyticsService 产生结构化事实，RetrievalService 产生知识证据，Workflow 再构造受约束 prompt 调用 ModelGateway。当前 ModelGateway 通过 Ollama 的本地 HTTP API 访问 qwen2.5:3b；模型列表和健康状态在 /healthz 可见。Gateway 隔离了模型供应商细节，因此可扩展到兼容 OpenAI API 的企业模型服务，但要增加密钥托管、重试、超时、并发和成本治理。</p><h2 class="h2">8.4 为什么同时使用数据库指标和 RAG</h2><table><thead><tr><th>信息类型</th><th>正确来源</th><th>示例</th></tr></thead><tbody><tr><td>事实与数值</td><td>Analytics Tool / MART</td><td>2018-07 某卖家的订单数和延迟率</td></tr><tr><td>定义与口径</td><td>代码、SQL、知识文档</td><td>延迟分母、销售额代理值含义</td></tr><tr><td>操作流程</td><td>RAG 知识</td><td>P1/P2/P3 分级、包装复核步骤</td></tr><tr><td>自然语言表达</td><td>LLM</td><td>把事实与流程组织为可读报告</td></tr></tbody></table><p>RAG 不适合回答实时聚合数字，SQL 也不适合承载长篇制度和 SOP。两者分工后，既能得到可复算的指标，又能给出有制度出处的建议；Evidence Gate 负责防止来源串位。</p><h2 class="h2">8.5 Run、Step、Event、Checkpoint 有什么区别</h2><table><thead><tr><th>对象</th><th>粒度</th><th>用途</th></tr></thead><tbody><tr><td>Run</td><td>一次用户消息的完整执行</td><td>状态、意图、最终结果、错误</td></tr><tr><td>Step</td><td>一个 LangGraph 节点</td><td>开始/结束、输入输出摘要、耗时</td></tr><tr><td>Tool Call</td><td>一次工具调用</td><td>工具名、验证后参数、结果摘要、错误</td></tr><tr><td>Event</td><td>面向客户端的时间序列事件</td><td>SSE 进度、token、完成/失败</td></tr><tr><td>Checkpoint</td><td>工作流状态快照</td><td>持久化状态与未来恢复基础</td></tr></tbody></table><div class="page-break"></div><h1 class="h1">9. 测试、评测、审计与安全</h1><h2 class="h2">9.1 当前验证基线</h2><table><thead><tr><th>检查</th><th>当前结果</th><th>覆盖内容</th></tr></thead><tbody><tr><td>pytest</td><td>27 passed</td><td>工具、工作流、安全、Embedding、数据库集成</td></tr><tr><td>Ruff</td><td>通过</td><td>Python 静态规范</td></tr><tr><td>Mypy</td><td>通过</td><td>核心 Python 类型检查</td></tr><tr><td>Frontend build</td><td>通过</td><td>TypeScript/Vite 生产构建</td></tr><tr><td>E2E smoke</td><td>2 条场景通过</td><td>API、数据库、模型、RAG、Agent 端到端</td></tr><tr><td>RAG Gold Set</td><td>Hybrid 三项均 1.0</td><td>16 条项目内检索回归</td></tr></tbody></table><h2 class="h2">9.2 关键安全控制</h2><ul><li>输入：Pydantic 校验、长度限制、日期和枚举边界；会话与 Run 使用 UUID。</li><li>工具：注册表 allowlist、固定 SQL、绑定参数、动态维度映射、结果行数限制。</li><li>数据：RAW 原始层只读约定，Analytics 主要查询 MART；Trace 对敏感字段做摘要/脱敏。</li><li>知识：潜在注入标记、上下文清洗、知识视为不可信证据而不是系统指令。</li><li>输出：Evidence Gate 与 Critic 校验引用集合、章节、泄漏和非空。</li><li>审计：Run/Step/Tool/Event 持久化，可通过 Trace API 复核。</li></ul><h2 class="h2">9.3 仍需补齐的生产安全</h2><ul><li>OIDC/OAuth2 登录、RBAC/ABAC、租户隔离与数据库行级安全。</li><li>文档级与 Chunk 级 ACL，并在检索 SQL 内强制执行。</li><li>TLS、反向代理、CORS 白名单、CSRF 策略、速率限制和 WAF。</li><li>Secrets Manager、密钥轮换、审计日志不可篡改归档和数据保留策略。</li><li>依赖漏洞扫描、SBOM、镜像签名、备份恢复演练和灾难恢复目标。</li><li>高风险写操作必须建立独立工具、审批节点、幂等键、补偿动作和最小权限身份。</li></ul><h2 class="h2">9.4 指标和因果解释的边界</h2><p>本项目把 item price 聚合作为销售额代理值，不等同于会计收入、到账金额或利润；支付表可能一单多记录；评价表可能一单多评价；延迟率必须只在同时存在实际与预计送达日期的订单中计算。观察到“延迟订单评分更低”只能说明相关性，不能单凭该数据证明因果。所有跨期趋势还要检查首末月是否完整、促销、节假日和数据截断。</p><div class="page-break"></div><h1 class="h1">10. 从零部署、运行与排错</h1><h2 class="h2">10.1 本地组成与端口</h2><table><thead><tr><th>组件</th><th>默认地址</th><th>说明</th></tr></thead><tbody><tr><td>React Web</td><td>http://127.0.0.1:5173</td><td>用户工作台</td></tr><tr><td>FastAPI</td><td>http://127.0.0.1:8000</td><td>REST/SSE/Swagger</td></tr><tr><td>PostgreSQL</td><td>127.0.0.1:55432</td><td>业务、知识和审计数据</td></tr><tr><td>Ollama</td><td>http://127.0.0.1:11434</td><td>本地模型服务</td></tr></tbody></table><h2 class="h2">10.2 常用命令</h2><pre><code># 第一次部署：安装依赖、初始化 PostgreSQL、下载/装载数据、建 MART 和知识库
+powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap.ps1
+
+# 日常启动与停止
+powershell -ExecutionPolicy Bypass -File .\scripts\start.ps1
+powershell -ExecutionPolicy Bypass -File .\scripts\stop.ps1
+
+# 健康检查
+Invoke-RestMethod http://127.0.0.1:8000/healthz
+
+# 单独重建数据与知识
+python scripts/load_data.py
+python scripts/data_quality_report.py
+python scripts/build_knowledge.py
+
+# 验证
+python -m pytest
+python -m ruff check .
+python -m mypy packages apps scripts
+npm --prefix apps/web run build</code></pre><h2 class="h2">10.3 故障定位顺序</h2><ol><li>先查看 /healthz，区分 API、数据库、模型和 RAG 哪一层异常。</li><li>检查 .runtime 下的服务日志和 PID 文件，不要只看前端提示。</li><li>数据库异常时确认 55432 端口、连接串、迁移版本和 pgvector 扩展。</li><li>RAG 无结果时确认 document_count、chunk_count、embedded_chunk_count 和 provider 一致。</li><li>Agent 失败时用 run_id 请求 /trace，找到最后一个失败 Step 或 Tool Call。</li><li>模型超时但工具成功时，检查 Ollama 模型是否已拉取；必要时验证模板降级路径。</li><li>数据指标异常时先确认 MART 粒度和日期边界，再检查 RAW，不要直接修改结果表。</li></ol><h2 class="h2">10.4 项目目录导航</h2><table><thead><tr><th>目录</th><th>内容</th></tr></thead><tbody><tr><td>apps/api</td><td>FastAPI 入口、Schema、RunService</td></tr><tr><td>apps/web</td><td>React/TypeScript 前端</td></tr><tr><td>packages/agent_runtime</td><td>LangGraph 状态、节点和编排</td></tr><tr><td>packages/analytics</td><td>分析 Schema、SQL 服务和工具</td></tr><tr><td>packages/retrieval</td><td>Embedding Provider 与混合检索</td></tr><tr><td>packages/model_gateway</td><td>Ollama 模型适配</td></tr><tr><td>packages/tools</td><td>工具注册表</td></tr><tr><td>db</td><td>迁移、STAGING、MART SQL</td></tr><tr><td>data/knowledge_seed</td><td>模拟企业知识 Markdown</td></tr><tr><td>scripts</td><td>部署、装载、评测、证据和报告生成</td></tr><tr><td>tests</td><td>单元与集成测试</td></tr><tr><td>项目导览与使用指南</td><td>从零指南、RAG 说明、技术面试细节和本报告</td></tr></tbody></table><div class="page-break"></div><h1 class="h1">11. 技术取舍、局限与路线图</h1><h2 class="h2">11.1 已做的取舍</h2><table><thead><tr><th>取舍</th><th>当前选择</th><th>原因</th><th>何时升级</th></tr></thead><tbody><tr><td>数据库</td><td>单 PostgreSQL</td><td>业务、向量、审计一体，部署简单</td><td>数据量或并发显著增长</td></tr><tr><td>向量</td><td>local_hash 384d</td><td>离线可重复、无密钥</td><td>接入真实知识和语义查询</td></tr><tr><td>融合</td><td>Weighted RRF</td><td>不同分支分数无需校准</td><td>有足够标注数据训练融合器</td></tr><tr><td>编排</td><td>确定性路由 + LangGraph</td><td>稳定、可测、可追踪</td><td>场景开放后引入受控 LLM Planner</td></tr><tr><td>模型</td><td>Ollama qwen2.5:3b</td><td>本地隐私和低成本</td><td>复杂生成质量或吞吐要求提高</td></tr><tr><td>异步</td><td>进程内任务 + SSE</td><td>本地样例简单</td><td>多实例和可靠恢复需要队列</td></tr><tr><td>前端</td><td>场景化 React UI</td><td>降低运营人员提问门槛</td><td>接入企业门户和统一身份</td></tr></tbody></table><h2 class="h2">11.2 优先路线图</h2><ol><li>P0：修正指标名称/单位一致性 Critic；为每个数值建立 tool_result 路径和断言。</li><li>P0：引入正式语义 Embedding，离线对比 recall、nDCG、延迟和资源成本后再切默认。</li><li>P1：支持 PDF/DOCX/XLSX/HTML 解析、元数据、版本、有效期、所有者和文档 ACL。</li><li>P1：增加 cross-encoder/LLM reranker，特别处理相似政策和否定查询。</li><li>P1：把任务执行迁移到可靠队列，支持重试、取消、幂等和恢复。</li><li>P1：加入 OIDC、RBAC/ABAC、租户隔离、RLS 和不可篡改审计。</li><li>P2：建立人工审批节点与恢复协议，写操作采用专用服务身份和补偿事务。</li><li>P2：建设真实标注集、答案忠实度评测、线上反馈和持续回归看板。</li></ol><h2 class="h2">11.3 参考开源项目后的吸收方式</h2><p>项目设计参考了 enterprise-knowledge-rag 对企业知识采集、切块、检索、引用、权限与评测的关注，也参考了 enterprise-workflow-agent-platform 对工作流、工具治理、运行审计、检查点和人机协同的分层思想。当前实现选择了适合单机演示的最小闭环，没有直接复制对方代码，也没有声称已覆盖其全部平台能力。</p><table><thead><tr><th>参考</th><th>地址</th><th>本项目吸收点</th></tr></thead><tbody><tr><td>enterprise-knowledge-rag</td><td>https://github.com/smlfy/enterprise-knowledge-rag</td><td>企业 RAG 的知识生命周期、混合检索、引用、评测与权限意识</td></tr><tr><td>enterprise-workflow-agent-platform</td><td>https://github.com/smlfy/enterprise-workflow-agent-platform</td><td>工作流节点、工具注册、运行状态、审计与后续 HITL 路线</td></tr></tbody></table><div class="page-break"></div><h1 class="h1">12. 技术面试问答速查</h1><h2 class="h2">项目最核心的工程价值是什么？</h2><p>把自然语言、确定性经营指标、企业知识和可审计工作流连接起来。重点不是聊天效果，而是数字可复算、建议有引用、执行可追踪、边界可治理。</p><h2 class="h2">为什么不用 LLM 直接写 SQL？</h2><p>生产数据结构复杂，任意 SQL 有注入、越权、性能和口径风险。白名单工具将查询和业务口径固化，并用参数模型约束输入；开放分析可另建只读沙箱和 SQL 审核器。</p><h2 class="h2">RAG 为什么同时用 FTS 和向量？</h2><p>FTS 对 ID、术语和精确关键词可靠，向量补充弱词面匹配；RRF 在不校准分数尺度的情况下融合排名。当前 local_hash 较弱，所以 FTS 权重更高。</p><h2 class="h2">如何证明回答没有幻觉？</h2><p>不能证明“绝不幻觉”，但能缩小和暴露风险：数值仅来自工具、知识引用可回溯、Evidence Gate 控制来源、Critic 检查引用，Trace 保存实际调用。下一步增加数值一致性校验和答案忠实度评测。</p><h2 class="h2">pgvector 的索引怎么选？</h2><p>当前使用 HNSW cosine，适合读多写少、查询延迟优先的小型知识库；规模扩大后应评估ef_search、m、ef_construction、内存、召回和构建时间，也可对比 IVFFlat。</p><h2 class="h2">SSE 与 WebSocket 如何取舍？</h2><p>当前主要是服务器向浏览器推送运行进度和文本，SSE 更简单。需要实时双向审批、协作控制或高频二进制通信时再使用 WebSocket。</p><h2 class="h2">怎样扩展一个新业务场景？</h2><p>定义指标口径和 MART；实现 Pydantic 输入与 AnalyticsService 查询；注册工具；加入意图路由和计划；补知识文档；增加单元、集成、E2E 与检索评测；最后更新 UI 和文档。</p><h2 class="h2">为什么 Gold Set 结果为 1.0 仍不能说 RAG 完美？</h2><p>只有 16 条、且来自项目模拟文档，存在样本小和关键词明显的问题。它适合回归，不足以估计生产泛化。需要更大、盲测、含 hard negative 与无答案的集合。</p><h2 class="h2">如何做企业级权限？</h2><p>身份在 API 入口解析为主体和租户；工具查询强制 tenant/RLS；知识文档和 Chunk 存 ACL；检索 SQL 先过滤权限再排序；审计记录主体、目的、数据范围和导出。</p><h2 class="h2">一次运行失败怎样排查？</h2><p>从 run_id 的 Trace 定位失败节点，再看 Tool Call 参数、数据库/模型/RAG 健康和服务日志。结构化 Step/Event 比只看最终错误更快找到边界。</p><div class="page-break"></div><h1 class="h1">附录 A　可复核文件与命令</h1><table><thead><tr><th>证据/文档</th><th>本地路径</th></tr></thead><tbody><tr><td>原始实时证据 JSON</td><td>项目导览与使用指南/项目介绍报告/actual_evidence.json</td></tr><tr><td>六张真实截图</td><td>项目导览与使用指南/项目介绍报告/assets</td></tr><tr><td>从零导览</td><td>项目导览与使用指南/01_从零认识OlistOps_Agent.md</td></tr><tr><td>安装使用</td><td>项目导览与使用指南/02_从零安装启动与使用.md</td></tr><tr><td>RAG 指南</td><td>项目导览与使用指南/07_混合RAG与评测指南.md</td></tr><tr><td>技术全细节</td><td>项目导览与使用指南/技术面试官_项目全细节.md</td></tr><tr><td>证据采集脚本</td><td>scripts/capture_report_evidence.py</td></tr><tr><td>截图脚本</td><td>scripts/capture_report_screenshots.py</td></tr><tr><td>本报告生成脚本</td><td>scripts/generate_project_report.py</td></tr></tbody></table><pre><code># 重新采集真实证据（服务需已启动）
+python scripts/capture_report_evidence.py
+python scripts/capture_report_screenshots.py
+
+# 重新生成 Word、HTML 和 PDF
+python scripts/generate_project_report.py</code></pre><h1 class="h1">附录 B　术语</h1><table><thead><tr><th>术语</th><th>含义</th></tr></thead><tbody><tr><td>Agent</td><td>能根据目标执行多阶段计划、调用工具并维护状态的软件运行体</td></tr><tr><td>RAG</td><td>Retrieval-Augmented Generation，检索增强生成</td></tr><tr><td>FTS</td><td>Full-Text Search，数据库全文检索</td></tr><tr><td>Embedding</td><td>把文本映射为向量表示的过程</td></tr><tr><td>pgvector</td><td>PostgreSQL 向量类型、距离运算与索引扩展</td></tr><tr><td>RRF</td><td>Reciprocal Rank Fusion，倒数排名融合</td></tr><tr><td>MART</td><td>面向稳定分析口径设计的数据集市</td></tr><tr><td>SSE</td><td>Server-Sent Events，服务器单向事件流</td></tr><tr><td>Evidence Gate</td><td>在生成前检查事实与知识证据是否充分的门控</td></tr><tr><td>Critic</td><td>在输出后执行结构、引用和安全检查的审查节点</td></tr><tr><td>HITL</td><td>Human in the Loop，人机协同与审批</td></tr></tbody></table><div class="note">本报告截至上述证据采集时间反映本地 v0.2.0 实现。代码、数据或配置变化后，应重新运行证据采集、截图和报告生成脚本，以保证数字与截图继续对应当前系统。</div>
+</body>
+</html>
